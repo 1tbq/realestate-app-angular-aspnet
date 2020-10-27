@@ -1,0 +1,146 @@
+<h2>
+  Properties
+</h2>
+
+<p>
+  <a [routerLink]="['/property/new']" class="btn btn-primary">Add New Property</a>
+</p>
+{{f.value | json}}
+{{query.value |json}}
+<!--<h2>Welcome {{ profile.nickname }}</h2>-->
+<!-- Search Form -->
+
+<form #searchForm="ngForm" #f="ngForm" (ngSubmit)="onFilterChange(f)">
+
+  <!-- City -->
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1">
+      <div class="form-group ">
+        <label >City:</label>
+       <!--<ss-multiselect-dropdown id="cities" [options]="myCities" [(ngModel)]="query.city" (ngModelChange)="onChange($event)" name="cities" (change)="onFilterChange()"></ss-multiselect-dropdown>-->
+        <select class=" form-control" [(ngModel)]="query.city" name="city" >
+        <option value=""></option>
+        <option *ngFor="let city of cities">{{city}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Property Type -->
+    <div class="col-md-2">
+      <div class="form-group">
+        <label>PropertyType:</label>
+       <!-- <ss-multiselect-dropdown [options]="myPropertyType" [(ngModel)]="propertyType" (ngModelChange)="onChange($event)" ></ss-multiselect-dropdown>-->
+        <select class=" form-control" [(ngModel)]="query.propertyType" name="propertyType">
+          <option value=""></option>
+          <option *ngFor="let p of myPropertyType">{{p.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- No of Beds -->
+    <div class="col-md-1">
+      <div class="form-group">
+        <label for="min-bed">Min.Bed</label>
+        <select class="form-control" [(ngModel)]="query.minBed" name="minBed">
+          <option></option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="max-bed">Max.Bed</label>
+        <select class="form-control" [(ngModel)]="query.maxBed" name="maxBed">
+          <option></option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="col-md-1">
+      <div class="form-group">
+        <label>Min.Price:</label>
+        <select class="form-control">
+          <option>Any</option>
+          <option>500000</option>
+          <option>1000000</option>
+          <option>2000000</option>
+          <option>5000000</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Max.Price:</label>
+        <select class="form-control">
+          <option>Any</option>
+          <option>500000</option>
+          <option>1000000</option>
+          <option>2000000</option>
+          <option>5000000</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+  <!-- Update Button -->
+  <div class="row">
+    <div class="col-md-3 col-md-offset-6">
+      <button type="submit" class="btn btn-primary">Update Search</button>
+      <button class="btn btn-default" (click)="resetFilter()">Reset</button>
+    </div>
+  </div>
+
+</form>
+
+
+<!-- Property Listings -->
+    <table class="table">
+
+      <thead>
+        <tr>
+
+          <th  *ngFor="let c of columns">
+            <div *ngIf="c.isSortable" (click)="sortBy(c.key)">
+              {{c.title}}
+              <i *ngIf="query.sortBy === c.key"
+                 class="fa"
+                 [class.fa-sort-asc]="query.isSortAscending"
+                 [class.fa-sort-desc]="!query.isSortAscending"
+                 ></i>
+            </div>
+            <div *ngIf="!c.isSortable">
+              {{c.title}}
+            </div>
+          </th>
+
+        </tr>
+      </thead>
+    <tbody>
+
+        <tr *ngFor="let qR of queryResult.items">
+          <td>{{qR.title}}</td>
+          <td>{{qR.price}}</td>
+          <td>{{qR.bedrooms}}</td>
+          <td>{{qR.bathrooms}}</td>
+          <td>{{qR.area}}</td>
+          <td>{{qR.city}}</td>
+          <td>{{qR.location}}</td>
+        </tr>
+      </tbody>
+    </table>
+<pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination>

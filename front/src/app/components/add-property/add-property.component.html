@@ -1,0 +1,164 @@
+<div class="container">
+
+
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+      <pre>Property: {{ myForm.value | json}}</pre>
+
+      <h2>Add Property</h2>
+
+      <form class="form-horizontal"  [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" >
+       <fieldset>
+
+          <!--Sale / Rent-->
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Purpose</label>
+            <nav class="seg-btn ">
+              <input type="radio" name="purpose" id="sale" value="Sale"  formControlName="purpose"  >
+              <label for="sale">Sale</label>
+              <input type="radio" name="purpose" id="rent" value="Rent"  formControlName="purpose" >
+              <label for="rent">Rent</label>
+            </nav>
+            </div>
+
+    <!--Province Cites-->
+          <!--<div class="form-group">-->
+           <!--<label>Province:</label>-->
+            <!--<select [ngModelOptions]="{standalone: true}"  [(ngModel)]="selectedProvince.id" (change)="onSelect($event.target.value)">-->
+              <!--<option value="0">&#45;&#45;Select&#45;&#45;</option>-->
+              <!--<option  *ngFor="let province of provinces" value={{province.name}}>{{province.name}}</option>-->
+            <!--</select>-->
+           <!--</div>-->
+            <div class="form-group">
+              <label class="col-lg-3"> City:</label>
+           <div class="col-lg-9">
+              <select formControlName="city" name="city">
+                <option value="0">--Select--</option>
+                <option  *ngFor="let city of cities" >{{city}}</option>
+              </select>
+            </div>
+        </div>
+
+
+    <!-- Location -->
+         <div class="form-group">
+           <label class="col-lg-3 control-label" for="propertyTitle">Location</label>
+           <div class="col-lg-9">
+             <input formControlName="location" name="location" type="text" placeholder="Area Location" class="form-control" id="propertyTitle">
+           </div>
+         </div>
+
+ <!--Property Type-->
+         <div class="form-group">
+           <label class="col-lg-3 control-label">Property Type</label>
+           <div class="col-lg-9">
+             <select  formControlName="propertyType" name="propertyType">
+               <option>Please Select one</option>
+               <option   *ngFor="let home of Homes">{{home}}</option>
+             </select>
+           </div>
+           </div>
+
+
+
+            <!-- Property Title-->
+            <div class="form-group">
+              <label class="col-lg-3 control-label" for="propertyTitle">Property Title</label>
+              <div class="col-lg-9">
+                <input formControlName="title" name="title" type="text" placeholder="Property Title" class="form-control" id="propertyTitle">
+              </div>
+            </div>
+
+         <!-- Description -->
+            <div class="form-group">
+              <label for="description" class="col-lg-3 control-label">Description</label>
+              <div class="col-lg-9">
+                <textarea formControlName="description" class="form-control" rows="3" id="description"></textarea>
+                <span class="help-block">Cant think of things click <a>here</a> to get ge help</span>
+              </div>
+            </div>
+
+         <!-- pirce -->
+            <div class="form-group">
+              <label for="inputPrice" class="col-lg-3 control-label">Price</label>
+              <div class="col-lg-9">
+                <input formControlName="price" type="text" class="form-control" id="inputPrice" placeholder="Price in Pak Rupees">
+              </div>
+
+            </div>
+
+         <!-- LandArea -->
+         <div class="form-group">
+              <label for="inputArea" class="col-lg-3 control-label">Land Area</label>
+              <div class="col-lg-9">
+                <input formControlName="area" type="text" class="form-control" id="inputArea" placeholder="Land Area">
+
+              </div>
+            </div>
+
+         <!-- Area Units -->
+            <div class="form-group">
+              <label for="area" class="col-lg-3 control-label">Area Units</label>
+              <div class="col-lg-9">
+                <select class="form-control" id="area">
+                  <option></option>
+                  <option>Kanal</option>
+                  <option>Marla</option>
+                  <option>Square Meter</option>
+                  <option>Square Yard</option>
+                </select>
+               </div>
+            </div>
+
+         <!-- Bedrooms -->
+            <div class="form-group">
+              <label for="bedrooms" class="col-lg-3 control-label">Bedrooms</label>
+              <div class="col-lg-9">
+                <select formControlName="bedrooms" name="bedrooms" class="form-control" id="bedrooms">
+                  <option>Please Select</option>
+                  <option *ngFor="let bed of bedrooms" >{{bed}}</option>
+                </select>
+                <!-- below validation not working -->
+                <div class="alert alert-danger" *ngIf="bedrooms.touched && bedrooms.invalid">Please select a price</div>
+              </div>
+
+
+            </div>
+
+         <!-- Bathrooms -->
+            <div class="form-group">
+              <label for="bathrooms" class="col-lg-3 control-label">Bathrooms</label>
+              <div class="col-lg-9">
+                <select  formControlName="bathrooms" name="bathroom" class="form-control" id="bathrooms">
+                  <option>Please Select</option>
+                  <option *ngFor="let bath of bathrooms" >{{bath}}</option>
+                </select>
+              </div>
+            </div>
+
+         <!-- Buttons -->
+            <div class="form-group">
+              <div class="col-lg-9 col-lg-offset-3">
+                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+                <button *ngIf="id" class="btn btn-danger" type="button" (click)="deleteProperty(id)">Delete</button>
+
+              </div>
+            </div>
+</fieldset>
+
+      </form>
+
+    </div><!-- /.col-lg-12 -->
+  </div><!-- /.row -->
+
+
+</div>
+
+
+
+
+<ng2-toasty [position]="'top-right'"></ng2-toasty>

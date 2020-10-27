@@ -1,0 +1,58 @@
+﻿<h1>Property</h1>
+<div>
+
+      <!-- Tab panes -->
+    <div  *ngIf="property">
+        <!-- Property tab -->
+      
+            <h2>Details</h2>
+            <ul>
+                <li>Title: {{property?.title }}</li>
+                <li>Price: {{ property?.price}}</li>
+                <li>Bedrooms: {{ property?.bedrooms}}
+                <li>Bathrooms: {{property?.bathrooms }}</li>
+            </ul>
+            <br />       
+        <!-- Photos tab -->
+            <h2>Photos</h2>
+            <input type="file" (change)="uploadPhoto()" #fileInput>
+            <div class="progress" *ngIf="progress && progress.percentage < 100">
+                <div class="progress-bar" [style.width]="progress.percentage + '%'">
+                    <span class="sr-only">{{progress.percentage}}% Complete</span>
+                </div>
+            </div>
+
+        <div class="row text-center text-lg-left">
+             <div *ngFor="let photo of photos" class="gallery" id="links">
+                <div class="col-lg-4 ">
+                    <a class="gallery-item" href="http://localhost:50035/uploads/{{ photo.fileName }}" data-gallery>
+                        <div class="image">
+                            <img src="http://localhost:50035/uploads/{{ photo.fileName }}" class="img-thumbnail">
+                            <ul class="gallery-item-controls"></ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+            <!-- BLUEIMP GALLERY -->
+            <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+                <div class="slides"></div>
+                <h3 class="title"></h3>
+                <a class="prev">‹</a>
+                <a class="next">›</a>
+                <a class="close">×</a>
+                <a class="play-pause"></a>
+                <ol class="indicator"></ol>
+            </div>
+            <!-- END BLUEIMP GALLERY -->
+
+            <p>
+                <a class="btn btn-primary" [routerLink]="['/property/edit/', property.id]">Edit</a>
+                <button class="btn btn-danger" (click)="delete()">Delete</button>
+                <a class="btn btn-default" [routerLink]="['/properties']">View All Properties</a>
+            </p>
+        </div>
+</div>
+
+
